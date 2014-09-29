@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HyperLoop", "HyperLoop\HyperLoop.fsproj", "{CCC35376-9A31-43B8-9156-C22E55FF8127}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B491B197-E96B-4832-8A69-7F927F4163A6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CommandMapper", "CommandMapper\CommandMapper.fsproj", "{FBECCA33-3A2E-4703-AA9B-B485571819D4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CommandMapperTests", "CommandMapperTests\CommandMapperTests.fsproj", "{CA8255B6-FD53-4752-B4FE-48A242661BDB}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sampler", "Sampler\Sampler.fsproj", "{F166B7F1-76D1-4077-BE04-A667AF019163}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SamplerTests", "SamplerTests\SamplerTests.fsproj", "{03933ED6-9AE6-482E-94BC-CB7CE616074D}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Harness", "Harness\Harness.fsproj", "{7A42E6EC-1D3C-4062-BE54-8D347992AD07}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HyperLoopTests", "HyperLoopTests\HyperLoopTests.fsproj", "{5E61840E-12DD-4679-A163-F4AC7C8F081E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCC35376-9A31-43B8-9156-C22E55FF8127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC35376-9A31-43B8-9156-C22E55FF8127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC35376-9A31-43B8-9156-C22E55FF8127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC35376-9A31-43B8-9156-C22E55FF8127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBECCA33-3A2E-4703-AA9B-B485571819D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBECCA33-3A2E-4703-AA9B-B485571819D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBECCA33-3A2E-4703-AA9B-B485571819D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBECCA33-3A2E-4703-AA9B-B485571819D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA8255B6-FD53-4752-B4FE-48A242661BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA8255B6-FD53-4752-B4FE-48A242661BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA8255B6-FD53-4752-B4FE-48A242661BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8255B6-FD53-4752-B4FE-48A242661BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F166B7F1-76D1-4077-BE04-A667AF019163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F166B7F1-76D1-4077-BE04-A667AF019163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F166B7F1-76D1-4077-BE04-A667AF019163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F166B7F1-76D1-4077-BE04-A667AF019163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03933ED6-9AE6-482E-94BC-CB7CE616074D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03933ED6-9AE6-482E-94BC-CB7CE616074D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03933ED6-9AE6-482E-94BC-CB7CE616074D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03933ED6-9AE6-482E-94BC-CB7CE616074D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A42E6EC-1D3C-4062-BE54-8D347992AD07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A42E6EC-1D3C-4062-BE54-8D347992AD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A42E6EC-1D3C-4062-BE54-8D347992AD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A42E6EC-1D3C-4062-BE54-8D347992AD07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E61840E-12DD-4679-A163-F4AC7C8F081E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E61840E-12DD-4679-A163-F4AC7C8F081E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E61840E-12DD-4679-A163-F4AC7C8F081E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E61840E-12DD-4679-A163-F4AC7C8F081E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
