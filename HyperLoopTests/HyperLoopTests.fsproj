@@ -52,6 +52,7 @@
     <None Include="app.config" />
     <Compile Include="ControllerTests.fs" />
     <None Include="packages.config" />
+    <Compile Include="RecorderTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HyperLoop\HyperLoop.fsproj">

@@ -1,5 +1,5 @@
 ﻿[<NUnit.Framework.TestFixture>]
-module HyperLoopTests 
+module ControllerTests 
 
 open System
 open NUnit.Framework
