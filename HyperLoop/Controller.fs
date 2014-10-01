@@ -6,7 +6,7 @@ open NAudio.Wave
 /// Coordinates a set of switches, a serial port listener and an NAudio IWaveIn,
 /// sending the commands from the serial port listener to the IWaveIn.
 type Controller(switchCount : int, listener : IListener, waveIn : IWaveIn) as this =
-   let _recorders = Array.init switchCount (fun _ -> Recorder(waveIn))
+   let _recorders = Array.init switchCount (fun _ -> Recorder(waveIn, Toggler()))
    do
       listener.OnCommand.Add(fun args -> this.DoCommand args.Command)
 

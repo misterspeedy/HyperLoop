@@ -13,12 +13,12 @@ let MockWaveIn() =
 
 [<Test>]
 let ``When nothing has been recorded we cannot access the buffer``() = 
-   let sut = Recorder(MockWaveIn().Object)
+   let sut = Recorder(MockWaveIn().Object, Toggler())
    (fun () -> sut.Buffer |> ignore) |> should throw typeof<InvalidOperationException>
 
 [<Test>]
 let ``When something has been recorded we can access the buffer``() = 
-   let sut = Recorder(MockWaveIn().Object)
+   let sut = Recorder(MockWaveIn().Object, Toggler())
    // Start recording:
    sut.Toggler.Toggle()
    // Stop recording again:
@@ -29,7 +29,7 @@ let ``When something has been recorded we can access the buffer``() =
 [<Test>]
 let ``When something has been recorded the buffer has the right contents``() = 
    let waveIn = MockWaveIn()
-   let sut = Recorder(waveIn.Object)
+   let sut = Recorder(waveIn.Object, Toggler())
    // Start recording:
    sut.Toggler.Toggle()
    // Simulate some sound data arriving:

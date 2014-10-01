@@ -5,14 +5,10 @@ open NAudio.Wave
 
 /// Takes an NAudio IWaveIn and records, stops recording,
 /// pauses, plays back etc. under the control of a Toggler
-type Recorder(waveIn : IWaveIn) as this = 
-   do
-      // TODO magic numbers
-      // TODO constructor params
-      waveIn.WaveFormat = new WaveFormat(44100, 1) |> ignore
-      
-   // TODO Inject the toggler?
-   let _toggler = Toggler()
+
+/// TODO create and inject a IToggler
+
+type Recorder(waveIn : IWaveIn, toggler : Toggler) as this = 
    let _bytes = ResizeArray<byte>()
 
    let DataAvailable (args : WaveInEventArgs) =
@@ -45,8 +41,8 @@ type Recorder(waveIn : IWaveIn) as this =
       StopIfRecording oldState
 
    do
-      _toggler.OnToggle.Add (fun (_, oldState, state) -> 
-         match _toggler.State with
+      toggler.OnToggle.Add (fun (_, oldState, state) -> 
+         match toggler.State with
          | ToggleState.Empty -> Reset oldState
          | ToggleState.Recording -> Record oldState
          | ToggleState.Playing -> Play oldState
@@ -55,10 +51,10 @@ type Recorder(waveIn : IWaveIn) as this =
       waveIn.DataAvailable.Add(fun args -> DataAvailable args)
       waveIn.RecordingStopped.Add(fun args -> RecordingStopped args)
 
-   member __.Toggler = _toggler
+   member __.Toggler = toggler
    // Next - think about what is going to do the playing
    // Add unit tests for Buffer member if kept
    member __.Buffer =
-      if _toggler.State <> Playing then
+      if toggler.State <> Playing then
          raise (InvalidOperationException("Cannot access buffer if not in Playing state"))
       _bytes

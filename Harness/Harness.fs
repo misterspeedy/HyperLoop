@@ -1,4 +1,5 @@
 ﻿open System
+open NAudio.Wave
 open HyperLoop
 
 type private DummyListener() =
@@ -13,6 +14,8 @@ type private DummyListener() =
 let main argv = 
    let listener = new DummyListener()
    let waveIn = new NAudio.Wave.WaveInEvent()
+   // TODO magic numbers
+   waveIn.WaveFormat = new WaveFormat(44100, 1) |> ignore
    waveIn.BufferMilliseconds <- 100
    waveIn.NumberOfBuffers <- 2
    waveIn.DeviceNumber <- 0   
