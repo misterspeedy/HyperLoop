@@ -20,9 +20,12 @@ let main argv =
    waveIn.NumberOfBuffers <- 2
    waveIn.DeviceNumber <- 0   
    let controller = new Controller(1, listener, waveIn)
+   printfn "Press a key to record"
+   Console.ReadKey(false) |> ignore
    listener.Do("D0")
    printfn "Recording"
-   System.Threading.Thread.Sleep 5000
+   printfn "Press a key to loop"
+   Console.ReadKey(false) |> ignore
    listener.Do("D0")
    printfn "Playing"
 
@@ -30,12 +33,7 @@ let main argv =
    let player = new Player(waveOut)
    waveOut.DeviceNumber <- 0
 
-   player.Play controller.Recorders.[0].Buffer
-   printfn "%A" player.WaveOut.PlaybackState
-   System.Threading.Thread.Sleep 100
-   printfn "%A" player.WaveOut.PlaybackState
-   System.Threading.Thread.Sleep 3000
-   printfn "%A" player.WaveOut.PlaybackState
-   printfn "Press a key"
+   player.PlayLooped controller.Recorders.[0].Buffer
+   printfn "Press a key to exit"
    Console.ReadKey(false) |> ignore
    0 // return an integer exit code
