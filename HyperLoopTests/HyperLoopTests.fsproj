@@ -53,16 +53,13 @@
     <Compile Include="ControllerTests.fs" />
     <None Include="packages.config" />
     <Compile Include="RecorderTests.fs" />
+    <Compile Include="TogglerTests.fs" />
+    <Compile Include="PlayerTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HyperLoop\HyperLoop.fsproj">
       <Name>HyperLoop</Name>
       <Project>{ccc35376-9a31-43b8-9156-c22e55ff8127}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Sampler\Sampler.fsproj">
-      <Name>Sampler</Name>
-      <Project>{f166b7f1-76d1-4077-be04-a667af019163}</Project>
       <Private>True</Private>
     </ProjectReference>
     <Reference Include="FsUnit.NUnit">

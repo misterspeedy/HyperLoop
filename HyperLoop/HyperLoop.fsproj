@@ -49,12 +49,14 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="Toggler.fs" />
     <Compile Include="IListener.fs" />
     <Compile Include="Listener.fs" />
     <Compile Include="Recorder.fs" />
     <Compile Include="Controller.fs" />
     <None Include="packages.config" />
     <None Include="Script1.fsx" />
+    <Compile Include="Player.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -71,11 +73,6 @@
     <ProjectReference Include="..\CommandMapper\CommandMapper.fsproj">
       <Name>CommandMapper</Name>
       <Project>{fbecca33-3a2e-4703-aa9b-b485571819d4}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Sampler\Sampler.fsproj">
-      <Name>Sampler</Name>
-      <Project>{f166b7f1-76d1-4077-be04-a667af019163}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

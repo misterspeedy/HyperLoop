@@ -8,11 +8,10 @@ open NAudio.Wave
 
 /// TODO create and inject a IToggler
 
-type Recorder(waveIn : IWaveIn, toggler : Toggler) as this = 
+type Recorder(waveIn : IWaveIn, toggler : Toggler) = 
    let _bytes = ResizeArray<byte>()
 
    let DataAvailable (args : WaveInEventArgs) =
-      // printfn "Data available"
       // TODO make faster!
       for i in 0..args.BytesRecorded-1 do
          _bytes.Add(args.Buffer.[i])
@@ -35,7 +34,7 @@ type Recorder(waveIn : IWaveIn, toggler : Toggler) as this =
       waveIn.StartRecording()
    let Play oldState =
       // Playing doesn't mean actively doing anything - just make the record buffer
-      // available
+      // available to an external player:
       StopIfRecording oldState
    let Mute oldState = 
       StopIfRecording oldState
@@ -53,8 +52,7 @@ type Recorder(waveIn : IWaveIn, toggler : Toggler) as this =
 
    member __.Toggler = toggler
    // Next - think about what is going to do the playing
-   // Add unit tests for Buffer member if kept
    member __.Buffer =
       if toggler.State <> Playing then
          raise (InvalidOperationException("Cannot access buffer if not in Playing state"))
-      _bytes
+      _bytes |> Array.ofSeq

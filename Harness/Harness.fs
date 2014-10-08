@@ -15,14 +15,27 @@ let main argv =
    let listener = new DummyListener()
    let waveIn = new NAudio.Wave.WaveInEvent()
    // TODO magic numbers
-   waveIn.WaveFormat = new WaveFormat(44100, 1) |> ignore
+   waveIn.WaveFormat <- new WaveFormat(44100, 1)
    waveIn.BufferMilliseconds <- 100
    waveIn.NumberOfBuffers <- 2
    waveIn.DeviceNumber <- 0   
    let controller = new Controller(1, listener, waveIn)
    listener.Do("D0")
-   System.Threading.Thread.Sleep 1500
+   printfn "Recording"
+   System.Threading.Thread.Sleep 5000
    listener.Do("D0")
+   printfn "Playing"
+
+   let waveOut = new WaveOutEvent()
+   let player = new Player(waveOut)
+   waveOut.DeviceNumber <- 0
+
+   player.Play controller.Recorders.[0].Buffer
+   printfn "%A" player.WaveOut.PlaybackState
+   System.Threading.Thread.Sleep 100
+   printfn "%A" player.WaveOut.PlaybackState
+   System.Threading.Thread.Sleep 3000
+   printfn "%A" player.WaveOut.PlaybackState
    printfn "Press a key"
    Console.ReadKey(false) |> ignore
    0 // return an integer exit code
