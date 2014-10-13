@@ -56,6 +56,7 @@
     <Compile Include="Controller.fs" />
     <None Include="packages.config" />
     <None Include="Script1.fsx" />
+    <Compile Include="LoopProvider.fs" />
     <Compile Include="Player.fs" />
   </ItemGroup>
   <ItemGroup>

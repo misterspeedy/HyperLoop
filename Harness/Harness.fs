@@ -33,7 +33,7 @@ let main argv =
    let player = new Player(waveOut)
    waveOut.DeviceNumber <- 0
 
-   player.PlayLooped controller.Recorders.[0].Buffer
+   player.Play controller.Recorders.[0].Buffer
    printfn "Press a key to exit"
    Console.ReadKey(false) |> ignore
    0 // return an integer exit code

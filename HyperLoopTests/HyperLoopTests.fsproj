@@ -55,6 +55,7 @@
     <Compile Include="RecorderTests.fs" />
     <Compile Include="TogglerTests.fs" />
     <Compile Include="PlayerTests.fs" />
+    <Compile Include="LoopProviderTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HyperLoop\HyperLoop.fsproj">
