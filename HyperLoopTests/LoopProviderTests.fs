@@ -13,7 +13,16 @@ let ``When the loop provider is initalized with an empty buffer it raises an exc
    let bufferIn = [||]
    (fun () -> LoopProvider(bufferIn) |> ignore) |> should throw typeof<System.ArgumentException>
 
-// TODO consider reading 0 bytes!
+[<Test>]
+let ``When the loop provider is initalized with a buffer containing 1 byte and 0 bytes are read no bytes are retrieved and the function returns 0``() = 
+   let expectedContent, expectedCount = [|0uy|], 0
+   let bufferIn = [|255uy|]
+   let bufferOut = Array.zeroCreate 1
+   let sut = LoopProvider(bufferIn)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 0, 0)
+   let actualContent = bufferOut
+   actualCount |> should equal expectedCount
+   actualContent |> should equal expectedContent
 
 [<Test>]
 let ``When the loop provider is initalized with a buffer containing 1 byte and 1 byte is read that same byte is retrieved and the function returns 1``() = 
@@ -38,7 +47,7 @@ let ``When the loop provider is initalized with a buffer containing 10 bytes and
    actualContent |> should equal expectedContent
 
 [<Test>]
-let ``When the loop provider is initalized with a buffer containing 10 bytes and 11 bytes are read the correct bytes are retrieved including repetition 11``() = 
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 11 bytes are read the correct bytes are retrieved including repetition and the function returns 11``() = 
    let expectedContent, expectedCount = Array.append [|0uy..9uy|] [|0uy|], 11
    let bufferIn = [|0uy..9uy|]
    let bufferOut = Array.zeroCreate 11
@@ -48,3 +57,46 @@ let ``When the loop provider is initalized with a buffer containing 10 bytes and
    actualCount |> should equal expectedCount
    actualContent |> should equal expectedContent
 
+[<Test>]
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 21 bytes are read the correct bytes are retrieved including repetition and the function returns 21``() = 
+   let expectedContent, expectedCount = Array.concat [| [|0uy..9uy|]; [|0uy..9uy|]; [|0uy|] |], 21
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 21
+   let sut = LoopProvider(bufferIn)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 0, 21)
+   let actualContent = bufferOut
+   actualCount |> should equal expectedCount
+   actualContent |> should equal expectedContent
+
+[<Test>]
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 5 the correct bytes and count are returned``() = 
+   let expectedContent, expectedCount = Array.append [|5uy..9uy|] [|0uy..4uy|], 10
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 10
+   let sut = LoopProvider(bufferIn)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 5, 10)
+   let actualContent = bufferOut
+   actualCount |> should equal expectedCount
+   actualContent |> should equal expectedContent
+
+[<Test>]
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 9 the correct bytes and count are returned``() = 
+   let expectedContent, expectedCount = Array.append [|9uy|] [|0uy..8uy|], 10
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 10
+   let sut = LoopProvider(bufferIn)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 9, 10)
+   let actualContent = bufferOut
+   actualCount |> should equal expectedCount
+   actualContent |> should equal expectedContent
+
+[<Test>]
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 11 the correct bytes and count are returned``() = 
+   let expectedContent, expectedCount = Array.append [|1uy..9uy|] [|0uy|], 10
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 10
+   let sut = LoopProvider(bufferIn)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 11, 10)
+   let actualContent = bufferOut
+   actualCount |> should equal expectedCount
+   actualContent |> should equal expectedContent
