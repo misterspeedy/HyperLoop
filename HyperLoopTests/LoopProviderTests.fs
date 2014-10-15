@@ -69,34 +69,37 @@ let ``When the loop provider is initalized with a buffer containing 10 bytes and
    actualContent |> should equal expectedContent
 
 [<Test>]
-let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 5 the correct bytes and count are returned``() = 
-   let expectedContent, expectedCount = Array.append [|5uy..9uy|] [|0uy..4uy|], 10
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 5 bytes are read into position 4 the correct bytes and count are returned``() = 
+   let expectedContent, expectedCount = Array.concat [| [|0uy;0uy;0uy;0uy|]; [|0uy..4uy|]; [|0uy|] |], 5
    let bufferIn = [|0uy..9uy|]
    let bufferOut = Array.zeroCreate 10
    let sut = LoopProvider(bufferIn)
-   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 5, 10)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 4, 5)
    let actualContent = bufferOut
    actualCount |> should equal expectedCount
    actualContent |> should equal expectedContent
 
 [<Test>]
-let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 9 the correct bytes and count are returned``() = 
-   let expectedContent, expectedCount = Array.append [|9uy|] [|0uy..8uy|], 10
+let ``When the loop provider is initalized with a buffer containing 10 bytes and 20 bytes are read into position 4 the correct bytes and count are returned including repetition``() = 
+   let expectedContent, expectedCount = [|0uy; 0uy; 0uy; 0uy; 0uy; 1uy; 2uy; 3uy; 4uy; 5uy; 6uy; 7uy; 8uy; 9uy; 0uy; 1uy; 2uy; 3uy; 4uy; 5uy; 6uy; 7uy; 8uy; 9uy|], 20
    let bufferIn = [|0uy..9uy|]
-   let bufferOut = Array.zeroCreate 10
+   let bufferOut = Array.zeroCreate 24
    let sut = LoopProvider(bufferIn)
-   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 9, 10)
+   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 4, 20)
    let actualContent = bufferOut
    actualCount |> should equal expectedCount
    actualContent |> should equal expectedContent
 
 [<Test>]
-let ``When the loop provider is initalized with a buffer containing 10 bytes and 10 bytes are read from position 11 the correct bytes and count are returned``() = 
-   let expectedContent, expectedCount = Array.append [|1uy..9uy|] [|0uy|], 10
+let ``When more bytes are requested than will fit in the buffer when reading into position 0 an error is raised``() = 
    let bufferIn = [|0uy..9uy|]
    let bufferOut = Array.zeroCreate 10
    let sut = LoopProvider(bufferIn)
-   let actualCount = (sut :> IWaveProvider).Read(bufferOut, 11, 10)
-   let actualContent = bufferOut
-   actualCount |> should equal expectedCount
-   actualContent |> should equal expectedContent
+   (fun () -> (sut :> IWaveProvider).Read(bufferOut, 0, 11) |> ignore) |> should throw typeof<System.IndexOutOfRangeException>
+
+[<Test>]
+let ``When more bytes are requested than will fit in the buffer when reading into position > 0 an error is raised``() = 
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 10
+   let sut = LoopProvider(bufferIn)
+   (fun () -> (sut :> IWaveProvider).Read(bufferOut, 9, 5) |> ignore) |> should throw typeof<System.IndexOutOfRangeException>

@@ -11,10 +11,11 @@ type LoopProvider(bufferIn : byte[]) =
    // TODO magic numbers
    let _waveFormat = new WaveFormat(44100, 1)
    interface IWaveProvider with
+      // TODO separate out the wave aspect from the read aspect
       member __.Read(bufferOut : byte[], offset : int, count : int) =
          let len = bufferIn.Length
          for i in 0..count-1 do
-            let index = (i + offset) % len
-            bufferOut.[i] <- bufferIn.[index]
+            let index = i % len
+            bufferOut.[i+offset] <- bufferIn.[index]
          count
       member __.WaveFormat = _waveFormat
