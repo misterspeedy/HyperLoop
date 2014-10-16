@@ -58,6 +58,7 @@
     <None Include="Script1.fsx" />
     <Compile Include="LoopProvider.fs" />
     <Compile Include="Player.fs" />
+    <Compile Include="CrossFader.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
