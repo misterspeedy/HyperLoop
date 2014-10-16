@@ -103,3 +103,25 @@ let ``When more bytes are requested than will fit in the buffer when reading int
    let bufferOut = Array.zeroCreate 10
    let sut = LoopProvider(bufferIn)
    (fun () -> (sut :> IWaveProvider).Read(bufferOut, 9, 5) |> ignore) |> should throw typeof<System.IndexOutOfRangeException>
+
+[<Test>]
+let ``When two successive reads occur the read position is advanced so the correct sequence of bytes is returned``() = 
+   let expected = [|0uy..9uy|]
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 10
+   let sut = LoopProvider(bufferIn)
+   for pos in [|0; 5|] do
+      (sut :> IWaveProvider).Read(bufferOut, pos, 5) |> ignore
+   let actual = bufferOut
+   actual |> should equal expected
+
+[<Test>]
+let ``When two successive reads occur and there is a wraparound the read position is cycled so the correct sequence of bytes is returned``() = 
+   let expected = Array.append [|0uy..9uy|] [|0uy..1uy|]
+   let bufferIn = [|0uy..9uy|]
+   let bufferOut = Array.zeroCreate 12
+   let sut = LoopProvider(bufferIn)
+   for pos in [|0; 6|] do
+      (sut :> IWaveProvider).Read(bufferOut, pos, 6) |> ignore
+   let actual = bufferOut
+   actual |> should equal expected

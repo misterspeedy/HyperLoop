@@ -8,6 +8,7 @@ type LoopProvider(bufferIn : byte[]) =
    do
       if bufferIn.Length = 0 then
          raise (new ArgumentException("Cannot loop an empty buffer"))
+   let mutable position = 0
    // TODO magic numbers
    let _waveFormat = new WaveFormat(44100, 1)
    interface IWaveProvider with
@@ -15,7 +16,7 @@ type LoopProvider(bufferIn : byte[]) =
       member __.Read(bufferOut : byte[], offset : int, count : int) =
          let len = bufferIn.Length
          for i in 0..count-1 do
-            let index = i % len
-            bufferOut.[i+offset] <- bufferIn.[index]
+            bufferOut.[i+offset] <- bufferIn.[position]
+            position <- (position + 1) % len
          count
       member __.WaveFormat = _waveFormat
