@@ -12,6 +12,14 @@ let ``The cross fader raises an exception if either of the buffers does not have
    (fun () -> CrossFader.CrossFade 11 buffer1 buffer2 |> ignore) |> should throw typeof<IndexOutOfRangeException>
 
 [<Test>]
+let ``The cross fader returns a buffer of length 0 when called with a Count of 0``() = 
+   let expected = 0
+   let buffer1, buffer2 = Array.zeroCreate 10, Array.zeroCreate 10
+   let result = CrossFader.CrossFade 0 buffer1 buffer2
+   let actual = result.Length
+   actual |> should equal expected
+
+[<Test>]
 let ``The cross fader returns a buffer of length Count``() = 
    let expected = 3
    let buffer1, buffer2 = Array.zeroCreate 10, Array.zeroCreate 10
